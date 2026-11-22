@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unduh D’Pinjam untuk Android</title>
+<meta name="description" content="Unduh aplikasi D’Pinjam, peminjaman barang sarana prasarana SMA N 8 Yogyakarta, langsung dari halaman ini.">
+<meta name="theme-color" content="#0D5C3F">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Unduh D’Pinjam untuk Android">
+<meta property="og:description" content="Aplikasi peminjaman barang sarana prasarana SMA N 8 Yogyakarta. Berkas asli, bisa dicek sidik jarinya sebelum dipasang.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230D5C3F'/%3E%3Ccircle cx='13' cy='16' r='6' fill='none' stroke='white' stroke-width='2.5'/%3E%3Ccircle cx='19' cy='16' r='6' fill='none' stroke='white' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&family=Spline+Sans+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --kertas:#F1F6EC;
+  --lembar:#FBFDF8;
+  --tinta:#10291F;
+  --redup:#4B6358;
+  --garis:#C9D8CC;
+  --garis-tebal:#A5BDAC;
+  --rimba:#0D5C3F;
+  --rimba-tua:#093F2C;
+  --tautan:#0D5C3F;
+  --lumut:#2F9E6A;
+  --cap:#C23A22;
+  --tombol-teks:#FFFFFF;
+  --baik-bg:#DDF1E4;
+  --salah-bg:#F9DEDA;
+  --sisi:clamp(1.1rem,4vw,2.5rem);
+  --judul:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;
+  --isi:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --kertas:#0B1812;
+    --lembar:#12261D;
+    --tinta:#E4F0E8;
+    --redup:#9DB8A9;
+    --garis:#1F382B;
+    --garis-tebal:#35584A;
+    --rimba:#3FBF86;
+    --rimba-tua:#1F7F57;
+    --tautan:#5CD6A0;
+    --lumut:#4CC38F;
+    --cap:#F0765E;
+    --tombol-teks:#05241A;
+    --baik-bg:#143626;
+    --salah-bg:#3B1B16;
+  }
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--isi);
+  background:var(--kertas);
+  color:var(--tinta);
+  line-height:1.6;
+  font-size:clamp(1rem,.95rem + .25vw,1.125rem);
+  min-height:100dvh;
+  overflow-x:hidden;
+}
+/* kertas berpetak, seperti buku catatan peminjaman; memudar ke tepi */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(var(--garis) 1px,transparent 1px),
+    linear-gradient(90deg,var(--garis) 1px,transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 55% at 72% 18%,#000 0,transparent 72%);
+  mask-image:radial-gradient(ellipse 75% 55% at 72% 18%,#000 0,transparent 72%);
+}
+a{color:var(--tautan)}
+:focus-visible{outline:3px solid var(--lumut);outline-offset:3px;border-radius:6px}
+.lompat{position:absolute;left:-999px;top:0;background:var(--rimba);color:var(--tombol-teks);padding:.6rem 1rem;z-index:10}
+.lompat:focus{left:var(--sisi);top:.6rem}
+.bungkus{width:min(1120px,calc(100% - 2 * var(--sisi)));margin-inline:auto}
+
+/* kepala */
+.atas{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:clamp(1rem,2.5vw,1.6rem)}
+.merek{display:flex;align-items:center;gap:.65rem;font-family:var(--judul);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--tinta);text-decoration:none}
+.merek svg{width:2.2rem;height:2.2rem;flex:none}
+.nav{display:flex;gap:1.4rem;font-weight:600;font-size:.95rem}
+.nav a{color:var(--tinta);text-decoration:none;opacity:.8}
+.nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:.3em}
+@media (max-width:520px){.nav a:last-child{display:none}}
+
+/* hero */
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(2rem,6vw,5rem);
+  align-items:center;
+  padding-block:clamp(1.5rem,5vw,4rem) clamp(3rem,8vw,6rem);
+}
+@media (max-width:880px){.hero{grid-template-columns:minmax(0,1fr)}}
+h1{
+  font-family:var(--judul);font-weight:800;
+  font-size:clamp(2.3rem,1.2rem + 5vw,4.6rem);
+  line-height:1.02;letter-spacing:-.035em;text-wrap:balance;
+}
+.lead{max-width:46ch;margin-top:1.2rem;color:var(--redup);font-size:clamp(1.05rem,1rem + .3vw,1.25rem)}
+.tautan-hero{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1.8rem;font-weight:600}
+.tautan-hero a{text-underline-offset:.28em}
+
+/* slip peminjaman */
+.slip-wrap{max-width:440px;width:100%;margin-inline:auto}
+.slip{
+  --lubang:14px;
+  position:relative;
+  rotate:-1.6deg;
+  transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .25s ease-out;
+  filter:drop-shadow(0 26px 28px rgba(8,40,28,.18)) drop-shadow(0 2px 3px rgba(8,40,28,.14));
+  animation:turun .95s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes turun{from{opacity:0;translate:0 -42px;rotate:-6deg}to{opacity:1;translate:0 0;rotate:-1.6deg}}
+.slip-badan{
+  position:relative;background:var(--lembar);
+  border-radius:22px 22px 0 0;
+  padding:clamp(1.3rem,4vw,1.9rem) clamp(1.3rem,4vw,1.9rem) 4.4rem;
+  -webkit-mask:
+    radial-gradient(circle var(--lubang) at 0 100%,#0000 98%,#000) 0 0/51% 100% no-repeat,
+    radial-gradient(circle var(--lubang) at 100% 100%,#0000 98%,#000) 100% 0/51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--lubang) at 0 100%,#0000 98%,#000) 0 0/51% 100% no-repeat,
+    radial-gradient(circle var(--lubang) at 100% 100%,#0000 98%,#000) 100% 0/51% 100% no-repeat;
+}
+.kop{display:flex;justify-content:space-between;gap:1rem;font-size:.85rem;color:var(--redup);font-weight:600}
+.kop b{font-family:var(--mono);font-weight:500;color:var(--tinta)}
+.nama-app{font-family:var(--judul);font-weight:800;font-size:clamp(2rem,1.4rem + 2.4vw,2.8rem);letter-spacing:-.03em;line-height:1.05;margin-top:1rem}
+.sub{color:var(--redup);font-size:.95rem;margin-top:.2rem}
+.rincian{margin-top:1.2rem}
+.rincian div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:2px dotted var(--garis-tebal)}
+.rincian dt{color:var(--redup)}
+.rincian dd{font-family:var(--mono);font-weight:500;text-align:right}
+.cap{
+  position:absolute;right:clamp(1.1rem,4vw,1.7rem);bottom:1rem;
+  rotate:-10deg;border:3px solid var(--cap);color:var(--cap);
+  padding:.1rem .75rem;border-radius:10px;
+  font-family:var(--judul);font-weight:800;font-size:1.3rem;letter-spacing:.05em;text-transform:uppercase;
+  opacity:.92;animation:cap .5s .85s cubic-bezier(.3,1.6,.5,1) both;
+}
+@keyframes cap{from{opacity:0;scale:2}to{opacity:.92;scale:1}}
+.slip-sobekan{
+  position:relative;background:var(--lembar);
+  border-radius:0 0 22px 22px;
+  padding:1.5rem clamp(1.3rem,4vw,1.9rem) 1.5rem;
+  transform-origin:0 0;
+  transition:transform .75s cubic-bezier(.2,.9,.3,1.25);
+  -webkit-mask:
+    radial-gradient(circle var(--lubang) at 0 0,#0000 98%,#000) 0 0/51% 100% no-repeat,
+    radial-gradient(circle var(--lubang) at 100% 0,#0000 98%,#000) 100% 0/51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--lubang) at 0 0,#0000 98%,#000) 0 0/51% 100% no-repeat,
+    radial-gradient(circle var(--lubang) at 100% 0,#0000 98%,#000) 100% 0/51% 100% no-repeat;
+}
+.slip-sobekan::before{content:"";position:absolute;inset:0 22px auto 22px;border-top:2px dashed var(--garis-tebal)}
+.slip.lepas .slip-sobekan{transform:translate(14px,20px) rotate(4.5deg)}
+.tombol{
+  display:flex;align-items:center;justify-content:center;gap:.65rem;width:100%;
+  padding:1rem 1.2rem;border-radius:14px;border:0;cursor:pointer;
+  background:var(--rimba);color:var(--tombol-teks);
+  font:700 1.08rem var(--isi);text-decoration:none;
+  box-shadow:0 6px 0 var(--rimba-tua);
+  transition:translate .12s,box-shadow .12s;
+}
+.tombol:hover{translate:0 -1px;box-shadow:0 7px 0 var(--rimba-tua)}
+.tombol:active{translate:0 5px;box-shadow:0 1px 0 var(--rimba-tua)}
+.tombol svg{width:1.3rem;height:1.3rem;flex:none}
+.info{margin-top:1.1rem;font-size:.92rem;color:var(--redup);text-align:center;text-wrap:balance}
+
+/* seksi */
+.seksi{padding-block:clamp(2.5rem,7vw,5rem)}
+.seksi + .seksi{border-top:2px dashed var(--garis-tebal)}
+h2{font-family:var(--judul);font-weight:700;font-size:clamp(1.7rem,1.2rem + 2vw,2.6rem);line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
+.pengantar{max-width:56ch;margin-top:.9rem;color:var(--redup)}
+.dua{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(2rem,6vw,4.5rem);align-items:start}
+@media (max-width:880px){.dua{grid-template-columns:minmax(0,1fr)}}
+
+/* cek berkas */
+.drop{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
+  margin-top:1.6rem;padding:clamp(1.4rem,4vw,2.2rem) 1.2rem;text-align:center;cursor:pointer;
+  border:2px dashed var(--garis-tebal);border-radius:28px;background:var(--lembar);
+  transition:border-color .2s,background .2s,scale .2s;
+}
+.drop:hover,.drop.tarik,.drop:focus-within{border-color:var(--rimba);scale:1.01}
+.drop svg{width:2.2rem;height:2.2rem;color:var(--rimba)}
+.drop strong{font-size:1.05rem}
+.drop span{font-size:.92rem;color:var(--redup)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.hasil{
+  display:flex;gap:.8rem;align-items:flex-start;margin-top:1rem;padding:1rem 1.1rem;border-radius:16px;
+  background:var(--lembar);border:2px solid var(--garis-tebal);animation:masuk .35s ease-out both;
+}
+.hasil[hidden]{display:none}
+.hasil[data-s="ok"]{background:var(--baik-bg);border-color:var(--lumut)}
+.hasil[data-s="salah"]{background:var(--salah-bg);border-color:var(--cap)}
+.hasil p{overflow-wrap:anywhere}
+.hasil small{display:block;color:var(--redup);font-family:var(--mono);font-size:.78rem;margin-top:.3rem}
+@keyframes masuk{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+.sidik{display:flex;align-items:stretch;gap:.6rem;margin-top:1.4rem}
+.sidik code{
+  flex:1;min-width:0;padding:.8rem 1rem;border-radius:14px;background:var(--lembar);
+  border:2px solid var(--garis);font-family:var(--mono);font-size:.8rem;overflow-wrap:anywhere;line-height:1.5;
+}
+.sidik button{
+  flex:none;padding:0 1.1rem;border-radius:14px;border:2px solid var(--rimba);background:transparent;
+  color:var(--tautan);font:700 .95rem var(--isi);cursor:pointer;
+}
+.sidik button:hover{background:var(--rimba);color:var(--tombol-teks)}
+.label-kecil{margin-top:1.4rem;font-weight:600;font-size:.95rem}
+details.lain{margin-top:1rem}
+details.lain summary,.tanya summary{cursor:pointer;font-weight:600}
+details.lain pre{margin-top:.6rem;padding:.8rem 1rem;border-radius:12px;background:var(--lembar);border:2px solid var(--garis);overflow-x:auto;font-family:var(--mono);font-size:.82rem}
+details.lain p{margin-top:.6rem;color:var(--redup);font-size:.95rem}
+
+/* izin */
+.izin{list-style:none;padding:0;margin-top:1.4rem}
+.izin li{padding:.9rem 0 .9rem 1.1rem;border-left:4px solid var(--lumut);margin-bottom:.8rem}
+.izin li:nth-child(odd){border-left-color:var(--rimba)}
+.izin strong{display:block;font-weight:700}
+.izin span{color:var(--redup);font-size:.95rem}
+.catatan{margin-top:1rem;color:var(--redup);font-size:.95rem;max-width:52ch}
+
+/* langkah */
+.langkah{list-style:none;padding:0;margin-top:2.2rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1.2rem,3vw,2.2rem);counter-reset:l}
+@media (max-width:900px){.langkah{grid-template-columns:minmax(0,1fr)}}
+.langkah li{position:relative;counter-increment:l;padding-top:3.4rem}
+.langkah li::before{
+  content:counter(l);position:absolute;left:0;top:0;width:2.6rem;height:2.6rem;border-radius:50%;
+  display:grid;place-items:center;background:var(--rimba);color:var(--tombol-teks);
+  font-family:var(--judul);font-weight:800;font-size:1.2rem;
+}
+.langkah li::after{content:"";position:absolute;top:1.3rem;left:3.1rem;right:-1rem;border-top:2px dashed var(--garis-tebal)}
+.langkah li:last-child::after{display:none}
+@media (max-width:900px){
+  .langkah li{padding-top:0;padding-left:3.7rem;min-height:2.6rem}
+  .langkah li::after{top:2.9rem;bottom:-1.2rem;left:1.3rem;right:auto;border-top:0;border-left:2px dashed var(--garis-tebal)}
+}
+.langkah h3{font-family:var(--judul);font-weight:700;font-size:1.2rem;letter-spacing:-.01em}
+.langkah p{margin-top:.35rem;color:var(--redup);font-size:.97rem}
+
+/* tanya jawab */
+.tanya-daftar{margin-top:1.8rem;max-width:760px}
+.tanya{border-bottom:2px solid var(--garis);padding-block:1rem}
+.tanya summary{font-size:1.05rem}
+.tanya p{margin-top:.6rem;color:var(--redup);max-width:62ch}
+
+footer{padding-block:2.5rem 3.5rem;border-top:2px dashed var(--garis-tebal);color:var(--redup);font-size:.93rem}
+footer p + p{margin-top:.5rem}
+footer b{color:var(--tinta)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .slip{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="lompat" href="#isi">Langsung ke konten</a>
+
+<div class="bungkus">
+  <header class="atas">
+    <a class="merek" href="#" aria-label="D’Pinjam, kembali ke atas">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0D5C3F"/><circle cx="13" cy="16" r="6" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="19" cy="16" r="6" fill="none" stroke="#fff" stroke-width="2.5"/></svg>
+      D’Pinjam
+    </a>
+    <nav class="nav" aria-label="Pintasan">
+      <a href="#cek">Cek keaslian</a>
+      <a href="#pasang">Cara memasang</a>
+    </nav>
+  </header>
+
+  <main id="isi">
+    <section class="hero">
+      <div>
+        <h1>Pinjam barang sarpras dari ponselmu</h1>
+        <p class="lead">Aplikasi peminjaman barang sarana prasarana SMA N 8 Yogyakarta. Ajukan, pantau, dan kembalikan tanpa antre. Berkas aplikasinya diunduh langsung dari halaman ini.</p>
+        <p class="tautan-hero">
+          <a href="#cek">Cara memastikan berkasnya asli</a>
+          <a href="#pasang">Cara memasang</a>
+        </p>
+      </div>
+
+      <div class="slip-wrap">
+        <article class="slip" id="slip" aria-label="Unduh D’Pinjam">
+          <div class="slip-badan">
+            <div class="kop"><span>Slip peminjaman aplikasi</span><span>No. <b data-isi="nomor"></b></span></div>
+            <p class="nama-app">D’Pinjam</p>
+            <p class="sub">Peminjaman barang sarana prasarana</p>
+            <dl class="rincian">
+              <div><dt>Versi</dt><dd data-isi="versi"></dd></div>
+              <div><dt>Ukuran</dt><dd data-isi="ukuran"></dd></div>
+              <div><dt>Android</dt><dd data-isi="android"></dd></div>
+              <div><dt>Dirilis</dt><dd data-isi="tanggal"></dd></div>
+            </dl>
+            <div class="cap" aria-hidden="true">tersedia</div>
+          </div>
+          <div class="slip-sobekan" id="sobekan">
+            <a class="tombol" id="unduh" href="D-Pinjam.apk" download="D-Pinjam-1.0.0.apk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 20h16"/></svg>
+              <span id="teks-unduh">Unduh APK</span>
+            </a>
+            <p class="info" id="info" aria-live="polite">Tidak perlu daftar untuk mengunduh. Berkas hanya tersedia di halaman ini.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="seksi" id="cek">
+      <div class="dua">
+        <div>
+          <h2>Pastikan berkas yang kamu unduh asli</h2>
+          <p class="pengantar">Setiap berkas punya sidik jari digital (SHA-256). Pilih berkas hasil unduhanmu di bawah. Pemeriksaan dilakukan di ponselmu sendiri, berkasnya tidak dikirim ke mana pun.</p>
+
+          <label class="drop" id="drop" for="berkas">
+            <input type="file" id="berkas" accept=".apk,application/vnd.android.package-archive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg>
+            <strong>Pilih berkas APK yang sudah diunduh</strong>
+            <span>atau tarik dan lepas di sini</span>
+          </label>
+          <div class="hasil" id="hasil" role="status" aria-live="polite" hidden></div>
+
+          <p class="label-kecil">Sidik jari berkas yang asli</p>
+          <div class="sidik">
+            <code id="sidik"></code>
+            <button type="button" id="salin">Salin</button>
+          </div>
+
+          <details class="lain">
+            <summary>Cara lain di komputer</summary>
+            <p>Windows PowerShell:</p>
+            <pre><code id="cmd-win"></code></pre>
+            <p>Mac atau Linux:</p>
+            <pre><code id="cmd-nix"></code></pre>
+            <p>Hasilnya harus sama persis dengan sidik jari di atas.</p>
+          </details>
+        </div>
+
+        <div>
+          <h2>Izin yang diminta aplikasi</h2>
+          <ul class="izin">
+            <li><strong>Internet</strong><span>Menghubungi server D’Pinjam untuk daftar barang, pengajuan, dan komentar.</span></li>
+            <li><strong>Status jaringan</strong><span>Mengetahui ponsel sedang online atau tidak.</span></li>
+            <li><strong>Notifikasi</strong><span>Menampilkan pengingat pengembalian dan pesan dari admin.</span></li>
+            <li><strong>Getar</strong><span>Bergetar saat ada notifikasi.</span></li>
+            <li><strong>Tetap terjaga sebentar</strong><span>Menjaga ponsel tetap aktif sesaat saat menerima pemberitahuan.</span></li>
+            <li><strong>Pesan dari Firebase</strong><span>Pemberitahuan dapat dikirim lewat layanan Firebase milik Google.</span></li>
+          </ul>
+          <p class="catatan">Daftar ini dibaca dari berkas manifest APK versi <span data-isi="versi"></span>. D’Pinjam tidak meminta akses kamera, kontak, lokasi, atau penyimpanan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seksi" id="pasang">
+      <h2>Cara memasang di Android</h2>
+      <ol class="langkah">
+        <li>
+          <h3>Unduh berkasnya</h3>
+          <p>Ketuk Unduh APK di bagian atas. Kalau browser bertanya, pilih Unduh atau Tetap unduh.</p>
+        </li>
+        <li>
+          <h3>Buka berkasnya</h3>
+          <p>Buka dari notifikasi unduhan atau folder Unduhan. Jika Android meminta izin, ketuk Pengaturan lalu aktifkan Izinkan dari sumber ini.</p>
+        </li>
+        <li>
+          <h3>Pasang</h3>
+          <p>Android memberi peringatan untuk semua aplikasi di luar Play Store. Jika sidik jarinya cocok, lanjutkan dengan Instal atau Tetap instal.</p>
+        </li>
+        <li>
+          <h3>Buka dan masuk</h3>
+          <p>Buka D’Pinjam, izinkan notifikasi, lalu masuk atau daftar akun baru.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="seksi" id="tanya">
+      <h2>Pertanyaan yang sering muncul</h2>
+      <div class="tanya-daftar">
+        <details class="tanya">
+          <summary>Kenapa tidak ada di Play Store?</summary>
+          <p>Untuk saat ini D’Pinjam dibagikan langsung lewat halaman ini. Karena itu Android menampilkan peringatan standar yang sama seperti untuk aplikasi lain di luar Play Store.</p>
+        </details>
+        <details class="tanya">
+          <summary>Android versi berapa yang didukung?</summary>
+          <p>Android 7.0 (Nougat) atau lebih baru. Satu berkas ini cocok untuk ponsel 32-bit maupun 64-bit.</p>
+        </details>
+        <details class="tanya">
+          <summary>Bisa dipasang di iPhone?</summary>
+          <p>Belum. Aplikasi ini hanya untuk Android.</p>
+        </details>
+        <details class="tanya">
+          <summary>Bagaimana cara memperbarui?</summary>
+          <p>Kembali ke halaman ini, unduh versi terbaru, lalu pasang. Biasanya tidak perlu menghapus versi lama.</p>
+        </details>
+        <details class="tanya">
+          <summary>Berkasnya gagal terpasang. Apa yang harus dilakukan?</summary>
+          <p>Pastikan ruang penyimpanan masih cukup, lalu cek sidik jari berkasnya di atas. Kalau tidak cocok, unduhan terputus atau berkasnya berubah. Unduh ulang dari halaman ini.</p>
+        </details>
+        <details class="tanya" id="bantuan" hidden>
+          <summary>Masih butuh bantuan?</summary>
+          <p>Hubungi admin lewat <a id="wa" href="#" rel="noopener">WhatsApp</a>.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><b>D’Pinjam</b> untuk SMA N 8 Yogyakarta. Versi <span data-isi="versi"></span>, dirilis <span data-isi="tanggal"></span>.</p>
+    <p>Unduh hanya dari halaman ini. Jangan memasang berkas bernama sama yang dikirim orang yang tidak kamu kenal.</p>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   Ubah blok ini setiap kali ada APK baru.
+   Sidik jari: Get-FileHash .\D-Pinjam.apk -Algorithm SHA256
+   ============================================================ */
+const CFG = {
+  berkas: "D-Pinjam.apk",
+  namaUnduh: "D-Pinjam-1.0.0.apk",
+  versi: "1.0.0",
+  tanggal: "22 November 2026",
+  ukuranByte: 56108284,
+  androidMin: "7.0",
+  sha256: "41825a42877f5eac574ddd0f9ef4149cb4636357a672340478f78d6f9b2c5332",
+  kontakWa: "" /* isi nomor tanpa + dan 0 di depan, mis. "6281234567890"; kosong = disembunyikan */
+};
+
+const ukuranMB = (CFG.ukuranByte / 1e6).toFixed(1).replace(".", ",") + " MB";
+const isi = {
+  nomor: "DP-" + CFG.versi,
+  versi: CFG.versi,
+  ukuran: ukuranMB,
+  android: CFG.androidMin + " ke atas",
+  tanggal: CFG.tanggal
+};
+document.querySelectorAll("[data-isi]").forEach(function (el) {
+  el.textContent = isi[el.dataset.isi] || "";
+});
+
+const unduh = document.getElementById("unduh");
+unduh.setAttribute("href", CFG.berkas);
+unduh.setAttribute("download", CFG.namaUnduh);
+document.getElementById("sidik").textContent = CFG.sha256;
+document.getElementById("cmd-win").textContent = "Get-FileHash .\\" + CFG.namaUnduh + " -Algorithm SHA256";
+document.getElementById("cmd-nix").textContent = "shasum -a 256 " + CFG.namaUnduh;
+
+if (CFG.kontakWa) {
+  document.getElementById("wa").href = "https://wa.me/" + CFG.kontakWa;
+  document.getElementById("bantuan").hidden = false;
+}
+
+/* tombol unduh: slip tersobek, unduhan tetap berjalan seperti biasa */
+const slip = document.getElementById("slip");
+unduh.addEventListener("click", function () {
+  slip.classList.add("lepas");
+  document.getElementById("teks-unduh").textContent = "Unduh lagi";
+  document.getElementById("info").innerHTML =
+    "Unduhan dimulai. Buka berkasnya dari notifikasi atau folder Unduhan, lalu ikuti <a href=\"#pasang\">cara memasang</a>.";
+});
+
+/* kemiringan halus mengikuti penunjuk (hanya perangkat dengan mouse) */
+if (window.matchMedia("(hover:hover) and (prefers-reduced-motion:no-preference)").matches) {
+  const bungkus = slip.parentElement;
+  bungkus.addEventListener("pointermove", function (e) {
+    const r = bungkus.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    slip.style.setProperty("--ry", (x * 7).toFixed(2) + "deg");
+    slip.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+  });
+  bungkus.addEventListener("pointerleave", function () {
+    slip.style.setProperty("--ry", "0deg");
+    slip.style.setProperty("--rx", "0deg");
+  });
+}
+
+/* salin sidik jari */
+document.getElementById("salin").addEventListener("click", function () {
+  const tombol = this;
+  const selesai = function () {
+    tombol.textContent = "Tersalin";
+    setTimeout(function () { tombol.textContent = "Salin"; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(CFG.sha256).then(selesai, function () {});
+  }
+});
+
+/* periksa berkas yang dipilih: SHA-256 dihitung di browser */
+const hasil = document.getElementById("hasil");
+function tampil(status, html, kecil) {
+  hasil.hidden = false;
+  hasil.dataset.s = status;
+  hasil.innerHTML = "<div><p>" + html + "</p>" + (kecil ? "<small>" + kecil + "</small>" : "") + "</div>";
+}
+function aman(t) {
+  return String(t).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c];
+  });
+}
+async function periksa(file) {
+  if (!file) return;
+  tampil("cek", "Memeriksa " + aman(file.name) + "…");
+  if (!(window.crypto && window.crypto.subtle)) {
+    tampil("salah", "Pemeriksaan hanya bisa berjalan lewat sambungan aman (https).");
+    return;
+  }
+  try {
+    const buf = await file.arrayBuffer();
+    const h = await crypto.subtle.digest("SHA-256", buf);
+    const hex = Array.from(new Uint8Array(h)).map(function (b) {
+      return b.toString(16).padStart(2, "0");
+    }).join("");
+    if (hex === CFG.sha256) {
+      tampil("ok", "<strong>Cocok.</strong> Berkas ini sama persis dengan yang disediakan di halaman ini. Aman dilanjutkan ke langkah memasang.");
+    } else {
+      tampil("salah", "<strong>Tidak cocok.</strong> Jangan dipasang. Hapus berkasnya, lalu unduh ulang dari halaman ini.", "Sidik jari berkasmu: " + hex);
+    }
+  } catch (e) {
+    tampil("salah", "Berkas gagal dibaca. Coba pilih ulang berkasnya.");
+  }
+}
+const input = document.getElementById("berkas");
+input.addEventListener("change", function () { periksa(input.files[0]); });
+const drop = document.getElementById("drop");
+["dragenter", "dragover"].forEach(function (n) {
+  drop.addEventListener(n, function (e) { e.preventDefault(); drop.classList.add("tarik"); });
+});
+["dragleave", "drop"].forEach(function (n) {
+  drop.addEventListener(n, function (e) { e.preventDefault(); drop.classList.remove("tarik"); });
+});
+drop.addEventListener("drop", function (e) {
+  if (e.dataTransfer && e.dataTransfer.files.length) periksa(e.dataTransfer.files[0]);
+});
+</script>
+</body>
+</html>
